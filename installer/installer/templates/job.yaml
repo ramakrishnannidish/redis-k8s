@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: redis-manager
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: redis-manager
+    spec:
+      containers:
+      - name: redis-manager
+        image: dexterquazi/redis:manager
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        envFrom:
+        - secretRef:
+            name: redis-secret
+      restartPolicy: Never

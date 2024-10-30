@@ -1,0 +1,14 @@
+cluster1:
+  name: redis-1
+cluster2:
+  name: redis-2
+cluster:
+  id: abcd
+  password: bitnami
+cloudflare:
+  api_key: TSyONf4aBbukZghenqCqCWVQ9A5_5HE3dBu3vfbH #open credentials for public
+  zone_id: 9b6d30d0efd10aaca41c05e85214d11c #open zone id for public
+aws:
+  AWS_ACCESS_KEY_ID: your_aws_access_key_id # put your AWS access key over here
+  AWS_SECRET_ACCESS_KEY: your_aws_secret_access_key # put your aws secret access key over here
+  AWS_DEFAULT_REGION: us-east-1

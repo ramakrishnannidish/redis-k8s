@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  redis-1-cluster2
+spec:
+  selector:
+    app: redis-1-cluster2
+  type:  LoadBalancer 
+  ports:
+  - name:  redis
+    port:  6379
+    targetPort:  6379
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  redis-2-cluster2
+spec:
+  selector:
+    app: redis-2-cluster2
+  type:  LoadBalancer 
+  ports:
+  - name:  redis
+    port:  6379
+    targetPort:  6379
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  redis-3-cluster2
+spec:
+  selector:
+    app: redis-3-cluster2
+  type:  LoadBalancer 
+  ports:
+  - name:  redis
+    port:  6379
+    targetPort:  6379

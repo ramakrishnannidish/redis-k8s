@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-1-cluster1
+spec:
+  selector:
+    matchLabels:
+      app: redis-1-cluster1
+  template:
+    metadata:
+      labels:
+        app: redis-1-cluster1
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: redis
+                operator: In
+                values:
+                - cluster1.node1.<CLUSTER_ID>
+      hostNetwork: true
+      containers:
+      - name: redis
+        env:
+        - name: REDIS_PASSWORD
+          value: <REDIS_PASSWORD>
+        - name: REDIS_NODES
+          value: <NODESIP>
+        image: docker.io/bitnami/redis-cluster:7.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: cluster1node1<CLUSTER_ID>
+          mountPath: /bitnami/redis/data
+      volumes:
+      - name: cluster1node1<CLUSTER_ID>
+        hostPath:
+          path: /tmp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-2-cluster1
+spec:
+  selector:
+    matchLabels:
+      app: redis-2-cluster1
+  template:
+    metadata:
+      labels:
+        app: redis-2-cluster1
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: redis
+                operator: In
+                values:
+                - cluster1.node2.<CLUSTER_ID>
+      hostNetwork: true
+      containers:
+      - name: redis
+        env:
+        - name: REDIS_PASSWORD
+          value: <REDIS_PASSWORD>
+        - name: REDIS_NODES
+          value: <NODESIP>
+        image: docker.io/bitnami/redis-cluster:7.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: cluster1node2<CLUSTER_ID>
+          mountPath: /bitnami/redis/data
+      volumes:
+      - name: cluster1node2<CLUSTER_ID>
+        hostPath:
+          path: /tmp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-3-cluster1
+spec:
+  selector:
+    matchLabels:
+      app: redis-3-cluster1
+  template:
+    metadata:
+      labels:
+        app: redis-3-cluster1
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: redis
+                operator: In
+                values:
+                - cluster1.node3.<CLUSTER_ID>
+      hostNetwork: true
+      containers:
+      - name: redis
+        env:
+        - name: REDIS_PASSWORD
+          value: <REDIS_PASSWORD>
+        - name: REDIS_NODES
+          value: <NODESIP>
+        image: docker.io/bitnami/redis-cluster:7.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: cluster1node3<CLUSTER_ID>
+          mountPath: /bitnami/redis/data
+      volumes:
+      - name: cluster1node3<CLUSTER_ID>
+        hostPath:
+          path: /tmp
